@@ -1,22 +1,27 @@
-
 package org.usfirst.frc.team2854.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 import org.usfirst.frc.team2854.robot.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ExampleCommand extends Command {
+public class ElevationMoveTo extends Command {
 
-    public ExampleCommand() {
+	private int setpoint;
+	
+    public ElevationMoveTo(int aSetpoint) {
         // Use requires() here to declare subsystem dependencies
-        //requires(Robot.exampleSubsystem);
+        // eg. requires(chassis);
+    	requires(Robot.elevator);
+    	setpoint = aSetpoint;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.elevator.setSetpoint(setpoint);
+    	Robot.elevator.enablePID();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -25,15 +30,17 @@ public class ExampleCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.elevator.onTarget();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.elevator.disablePID();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.elevator.disablePID();
     }
 }

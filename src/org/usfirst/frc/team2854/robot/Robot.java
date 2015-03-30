@@ -5,8 +5,14 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
+import org.usfirst.frc.team2854.robot.OI.OIMap;
+import org.usfirst.frc.team2854.robot.commands.ElevationMove;
+import org.usfirst.frc.team2854.robot.commands.ElevationMoveTo;
 import org.usfirst.frc.team2854.robot.commands.ExampleCommand;
+import org.usfirst.frc.team2854.robot.subsystems.Elevation;
 import org.usfirst.frc.team2854.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team2854.robot.subsystems.Elevation.ElevationConfig;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -17,7 +23,10 @@ import org.usfirst.frc.team2854.robot.subsystems.ExampleSubsystem;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+	//public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+	
+	public static final Elevation elevator = new Elevation();
+	
 	public static OI oi;
 
     Command autonomousCommand;
@@ -68,6 +77,15 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	if(Robot.oi.getButton(OIMap.JoystickId.JOY2, OIMap.Button.LB)){
+    		Scheduler.getInstance().add(new ElevationMoveTo(ElevationConfig.Setpoint.BOT));
+    	}
+    	if(Robot.oi.getButton(OIMap.JoystickId.JOY2, OIMap.Button.RB)){
+    		Scheduler.getInstance().add(new ElevationMoveTo(ElevationConfig.Setpoint.TOP));
+    	}
+    	if(Robot.oi.getAxis(OIMap.JoystickId.JOY2, OIMap.Axis.LY) != 0){
+    		Scheduler.getInstance().add(new ElevationMove(OIMap.JoystickId.JOY2, OIMap.Axis.LY));
+    	}
         Scheduler.getInstance().run();
     }
     
