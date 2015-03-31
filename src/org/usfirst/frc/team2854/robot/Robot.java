@@ -7,9 +7,11 @@ import org.usfirst.frc.team2854.robot.commands.DriveMove;
 import org.usfirst.frc.team2854.robot.commands.ElevationMove;
 import org.usfirst.frc.team2854.robot.commands.ElevationMoveTo;
 import org.usfirst.frc.team2854.robot.commands.FullAuto;
+import org.usfirst.frc.team2854.robot.commands.Intake;
 import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2854.robot.subsystems.Elevation;
 import org.usfirst.frc.team2854.robot.subsystems.Elevation.ElevationConfig;
+import org.usfirst.frc.team2854.robot.subsystems.PickUp;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -32,6 +34,7 @@ public class Robot extends IterativeRobot {
 
 	public static final Elevation elevator = new Elevation();
 	public static final DriveTrain drive = new DriveTrain();
+	public static final PickUp pickup = new PickUp();
 
 	SendableChooser autoChooser;
 
@@ -105,16 +108,20 @@ public class Robot extends IterativeRobot {
 		} else if (Robot.oi.getButton(OIMap.JoystickId.JOY2, OIMap.Button.RB)) {
 			Scheduler.getInstance().add(
 					new ElevationMoveTo(ElevationConfig.Setpoint.TOP));
-		} else if (Robot.oi.getAxis(OIMap.JoystickId.JOY2, OIMap.Axis.LY) != 0) {
+		} else if (!elevator.getCurrentCommand().getName()
+				.equals("ElevationMove")) {
 			Scheduler.getInstance().add(
 					new ElevationMove(OIMap.JoystickId.JOY2, OIMap.Axis.LY));
 		}
 		// drive
-		if (Robot.oi.getAxis(OIMap.JoystickId.JOY1, OIMap.Axis.LY) != 0
-				|| Robot.oi.getAxis(OIMap.JoystickId.JOY1, OIMap.Axis.RY) != 0) {
+		if (!drive.getCurrentCommand().getName().equals("DriveMove")) {
 			Scheduler.getInstance().add(
 					new DriveMove(OIMap.JoystickId.JOY1, OIMap.Axis.LY,
 							OIMap.Axis.RY));
+		}
+		// pickup
+		if (!pickup.getCurrentCommand().getName().equals("Intake")) {
+			Scheduler.getInstance().add(new Intake(OIMap.JoystickId.JOY1, OIMap.Button.RB, OIMap.Button.LB));
 		}
 		Scheduler.getInstance().run();
 	}

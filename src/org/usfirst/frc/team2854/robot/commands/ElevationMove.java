@@ -55,12 +55,7 @@ public class ElevationMove extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(isAxis){
-    		return Robot.oi.getAxis(joystickId, axisId) == 0;	
-    	} else {
-    		return !Robot.oi.getButton(joystickId, buttonUpId) && !Robot.oi.getButton(joystickId, buttonDownId);
-    	}
-        
+    	return false;        
     }
 
     // Called once after isFinished returns true

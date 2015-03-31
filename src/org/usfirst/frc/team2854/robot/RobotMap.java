@@ -19,8 +19,8 @@ public class RobotMap {
 
 	public static class aElevation {
 		public static class aTalon {
-			public static final int A = 5;
-			public static final int B = 6;
+			public static final int A = 2;
+			public static final int B = 3;
 		}
 
 		public static class aSensor {
@@ -64,6 +64,13 @@ public class RobotMap {
 					}
 				}
 			}
+		}
+	}
+	
+	public static class aPickUp {
+		public static class aTalon {
+			public static final int L = 6;
+			public static final int R = 7;
 		}
 	}
 }
