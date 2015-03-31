@@ -14,11 +14,12 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 public class Elevation extends PIDSubsystem {
 	public static class ElevationConfig {
 		public static class Setpoint {
-			public static final int BOT = 0;
-			public static final int TOP = 3050;
+			public static final double BOT = 0;
+			public static final double TOP = 3050;
+			public static final double MID = 1525;
 		}
 
-		public static final int TOLERANCE = 50;
+		public static final double TOLERANCE = 50;
 		
 		public static class ButtonMove {
 			public static final double UP = 0.5;
@@ -49,8 +50,8 @@ public class Elevation extends PIDSubsystem {
 		topLimit = new DigitalInput(RobotMap.aElevation.aSensor.Limit.TOP);
 
 		elevationEncoder = new Encoder(
-				RobotMap.aElevation.aSensor.Encoder.A.Channel.A,
-				RobotMap.aElevation.aSensor.Encoder.A.Channel.B, true,
+				RobotMap.aElevation.aSensor.aEncoder.A.Channel.A,
+				RobotMap.aElevation.aSensor.aEncoder.A.Channel.B, true,
 				EncodingType.k4X);
 
 		setAbsoluteTolerance(ElevationConfig.TOLERANCE);
