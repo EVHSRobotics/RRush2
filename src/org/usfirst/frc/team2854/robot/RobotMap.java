@@ -73,4 +73,10 @@ public class RobotMap {
 			public static final int R = 7;
 		}
 	}
+	
+	public static class aHook {
+		public static class aVictor {
+			public static final int A = 8;
+		}
+	}
 }

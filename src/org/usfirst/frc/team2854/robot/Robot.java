@@ -7,9 +7,11 @@ import org.usfirst.frc.team2854.robot.commands.DriveMove;
 import org.usfirst.frc.team2854.robot.commands.ElevationMove;
 import org.usfirst.frc.team2854.robot.commands.ElevationMoveTo;
 import org.usfirst.frc.team2854.robot.commands.FullAuto;
+import org.usfirst.frc.team2854.robot.commands.Grab;
 import org.usfirst.frc.team2854.robot.commands.Intake;
 import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2854.robot.subsystems.Elevation;
+import org.usfirst.frc.team2854.robot.subsystems.Hooks;
 import org.usfirst.frc.team2854.robot.subsystems.Elevation.ElevationConfig;
 import org.usfirst.frc.team2854.robot.subsystems.PickUp;
 
@@ -36,6 +38,7 @@ public class Robot extends IterativeRobot {
 	public static final Elevation elevator = new Elevation();
 	public static final DriveTrain drive = new DriveTrain();
 	public static final PickUp pickup = new PickUp();
+	public static final Hooks hooks = new Hooks();
 	
 	//AND THIS
 	CameraServer server;
@@ -114,9 +117,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
-		System.out.println("AJLFD");
 		// elevation
-		System.out.println("R:"+elevator.getCurrentCommand().getName());
 		if (Robot.oi.getButton(OIMap.JoystickId.JOY2, OIMap.Button.LB)) {
 			System.out.println("1");
 			Scheduler.getInstance().add(
@@ -125,24 +126,28 @@ public class Robot extends IterativeRobot {
 			System.out.println("2");
 			Scheduler.getInstance().add(
 					new ElevationMoveTo(ElevationConfig.Setpoint.TOP));
-		} else if (!elevator.getCurrentCommand().getName()
+		} else if (elevator.getCurrentCommand() == null || !elevator.getCurrentCommand().getName()
 				.equals("ElevationMove")) {
 			System.out.println("3");
 			Scheduler.getInstance().add(
 					new ElevationMove(OIMap.JoystickId.JOY2, OIMap.Axis.LY));
 		}
-		System.out.println("BCDSF");
 		// drive
-		if (!drive.getCurrentCommand().getName().equals("DriveMove")) {
+		if (drive.getCurrentCommand() == null || !drive.getCurrentCommand().getName().equals("DriveMove")) {
 			System.out.println("4");
 			Scheduler.getInstance().add(
 					new DriveMove(OIMap.JoystickId.JOY1, OIMap.Axis.LY,
 							OIMap.Axis.RY));
 		}
 		// pickup
-		if (!pickup.getCurrentCommand().getName().equals("Intake")) {
+		if (pickup.getCurrentCommand() == null || !pickup.getCurrentCommand().getName().equals("Intake")) {
 			System.out.println("5");
 			Scheduler.getInstance().add(new Intake(OIMap.JoystickId.JOY1, OIMap.Button.RB, OIMap.Button.LB));
+		}
+		//hooks 
+		if(hooks.getCurrentCommand() == null || !hooks.getCurrentCommand().getName().equals("Grab")){
+			System.out.println("6");
+			Scheduler.getInstance().add(new Grab(OIMap.JoystickId.JOY2, OIMap.Button.A, OIMap.Button.X));
 		}
 		Scheduler.getInstance().run();
 	}
