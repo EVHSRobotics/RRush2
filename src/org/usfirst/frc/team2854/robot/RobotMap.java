@@ -27,15 +27,15 @@ public class RobotMap {
 			public static class aEncoder {
 				public static class A {
 					public static class Channel {
-						public static final int A = 2;
-						public static final int B = 3;
+						public static final int A = 0;
+						public static final int B = 1;
 					}
 				}
 			}
 
 			public static class Limit {
-				public static final int BOT = 0;
-				public static final int TOP = 1;
+				public static final int BOT = 8;
+				public static final int TOP = 9;
 			}
 		}
 	}

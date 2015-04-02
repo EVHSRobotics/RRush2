@@ -29,11 +29,13 @@ public class DriveTrain extends Subsystem {
 	private Encoder driveEncoderR;
 
 	public DriveTrain() {
+		/*
 		driveTalonLF = new Talon(RobotMap.aDrive.aTalon.LF);
 		driveTalonLB = new Talon(RobotMap.aDrive.aTalon.LB);
 		driveTalonRF = new Talon(RobotMap.aDrive.aTalon.RF);
 		driveTalonRB = new Talon(RobotMap.aDrive.aTalon.RB);
 
+		
 		driveEncoderL = new Encoder(
 				RobotMap.aDrive.aSensor.aEncoder.L.Channel.A,
 				RobotMap.aDrive.aSensor.aEncoder.L.Channel.B, true,
@@ -42,32 +44,42 @@ public class DriveTrain extends Subsystem {
 				RobotMap.aDrive.aSensor.aEncoder.R.Channel.A,
 				RobotMap.aDrive.aSensor.aEncoder.R.Channel.B, true,
 				EncodingType.k4X);
+				*/
 	}
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 
 	public void tankDrive(double left, double right) {
+		System.out.println("L:"+left+" R:"+right);
+		/*
 		driveTalonLF.set(left);
 		driveTalonRF.set(right);
 		driveTalonLB.set(left);
 		driveTalonRB.set(right);
+		*/
 	}
 	
 	public void resetEncoderR() {
-		driveEncoderR.reset();
+		System.out.println("ENCODER R RESET");
+		//driveEncoderR.reset();
 	}
 	
 	public void resetEncoderL() {
-		driveEncoderL.reset();
+		System.out.println("ENCODER L RESET");
+		//driveEncoderL.reset();
 	}
 	
 	public double getEncoderL() {
-		return driveEncoderL.getDistance();
+		System.out.println("DISTANCE L");
+		return 0;
+		//return driveEncoderL.getDistance();
 	}
 	
 	public double getEncoderR() {
-		return driveEncoderR.getDistance();
+		System.out.println("DISTANCE R");
+		return 0;
+		//return driveEncoderR.getDistance();
 	}
 
 	public void initDefaultCommand() {

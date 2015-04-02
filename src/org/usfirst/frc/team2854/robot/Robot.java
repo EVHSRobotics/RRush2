@@ -13,6 +13,7 @@ import org.usfirst.frc.team2854.robot.subsystems.Elevation;
 import org.usfirst.frc.team2854.robot.subsystems.Elevation.ElevationConfig;
 import org.usfirst.frc.team2854.robot.subsystems.PickUp;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -35,6 +36,9 @@ public class Robot extends IterativeRobot {
 	public static final Elevation elevator = new Elevation();
 	public static final DriveTrain drive = new DriveTrain();
 	public static final PickUp pickup = new PickUp();
+	
+	//AND THIS
+	CameraServer server;
 
 	SendableChooser autoChooser;
 
@@ -48,9 +52,17 @@ public class Robot extends IterativeRobot {
 	 */
 	public void robotInit() {
 		oi = new OI();
+		
+		//MAKE SURE TO ADD THIS
+        server = CameraServer.getInstance();
+        server.setQuality(50);
+        //the camera name (ex "cam0") can be found through the roborio web interface
+        server.startAutomaticCapture("cam0");
+        
 		// instantiate the command used for the autonomous period
 		// autonomousCommand = new ExampleCommand();
 		dashboard();
+		System.out.println("HELLO");
 	}
 
 	private void dashboard() {
@@ -60,6 +72,7 @@ public class Robot extends IterativeRobot {
 		autoChooser.addObject("Forward", new DriveForward(4096));
 		autoChooser.addObject("Full Auto", new FullAuto());
 		SmartDashboard.putData("Autonomous Mode Choooser", autoChooser);
+		SmartDashboard.putNumber("PID",0);
 	}
 
 	public void disabledPeriodic() {
@@ -101,26 +114,34 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
+		System.out.println("AJLFD");
 		// elevation
+		System.out.println("R:"+elevator.getCurrentCommand().getName());
 		if (Robot.oi.getButton(OIMap.JoystickId.JOY2, OIMap.Button.LB)) {
+			System.out.println("1");
 			Scheduler.getInstance().add(
 					new ElevationMoveTo(ElevationConfig.Setpoint.BOT));
 		} else if (Robot.oi.getButton(OIMap.JoystickId.JOY2, OIMap.Button.RB)) {
+			System.out.println("2");
 			Scheduler.getInstance().add(
 					new ElevationMoveTo(ElevationConfig.Setpoint.TOP));
 		} else if (!elevator.getCurrentCommand().getName()
 				.equals("ElevationMove")) {
+			System.out.println("3");
 			Scheduler.getInstance().add(
 					new ElevationMove(OIMap.JoystickId.JOY2, OIMap.Axis.LY));
 		}
+		System.out.println("BCDSF");
 		// drive
 		if (!drive.getCurrentCommand().getName().equals("DriveMove")) {
+			System.out.println("4");
 			Scheduler.getInstance().add(
 					new DriveMove(OIMap.JoystickId.JOY1, OIMap.Axis.LY,
 							OIMap.Axis.RY));
 		}
 		// pickup
 		if (!pickup.getCurrentCommand().getName().equals("Intake")) {
+			System.out.println("5");
 			Scheduler.getInstance().add(new Intake(OIMap.JoystickId.JOY1, OIMap.Button.RB, OIMap.Button.LB));
 		}
 		Scheduler.getInstance().run();
