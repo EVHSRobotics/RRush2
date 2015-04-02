@@ -57,10 +57,10 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		
 		//MAKE SURE TO ADD THIS
-        server = CameraServer.getInstance();
-        server.setQuality(50);
+        //server = CameraServer.getInstance();
+        //server.setQuality(50);
         //the camera name (ex "cam0") can be found through the roborio web interface
-        server.startAutomaticCapture("cam0");
+        //server.startAutomaticCapture("cam0");
         
 		// instantiate the command used for the autonomous period
 		// autonomousCommand = new ExampleCommand();
@@ -133,21 +133,24 @@ public class Robot extends IterativeRobot {
 					new ElevationMove(OIMap.JoystickId.JOY2, OIMap.Axis.LY));
 		}
 		// drive
+		System.out.println("4");
 		if (drive.getCurrentCommand() == null || !drive.getCurrentCommand().getName().equals("DriveMove")) {
-			System.out.println("4");
+			
 			Scheduler.getInstance().add(
 					new DriveMove(OIMap.JoystickId.JOY1, OIMap.Axis.LY,
 							OIMap.Axis.RY));
 		}
 		// pickup
+		System.out.println("5");
 		if (pickup.getCurrentCommand() == null || !pickup.getCurrentCommand().getName().equals("Intake")) {
-			System.out.println("5");
+			
 			Scheduler.getInstance().add(new Intake(OIMap.JoystickId.JOY1, OIMap.Button.RB, OIMap.Button.LB));
 		}
 		//hooks 
+		System.out.println("6");
 		if(hooks.getCurrentCommand() == null || !hooks.getCurrentCommand().getName().equals("Grab")){
-			System.out.println("6");
-			Scheduler.getInstance().add(new Grab(OIMap.JoystickId.JOY2, OIMap.Button.A, OIMap.Button.X));
+			
+			Scheduler.getInstance().add(new Grab(OIMap.JoystickId.JOY2, OIMap.Button.X, OIMap.Button.B));
 		}
 		Scheduler.getInstance().run();
 	}

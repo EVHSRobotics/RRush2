@@ -17,6 +17,9 @@ public class Grab extends Command {
     public Grab(int aJoystickId, int aButtonDownId, int aButtonUpId) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	joystickId = aJoystickId;
+    	buttonDownId = aButtonDownId;
+    	buttonUpId = aButtonUpId;
     	requires(Robot.hooks);
     }
 

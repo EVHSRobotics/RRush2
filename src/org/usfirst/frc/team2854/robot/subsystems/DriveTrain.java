@@ -49,7 +49,7 @@ public class DriveTrain extends Subsystem {
 	// here. Call these from Commands.
 
 	public void tankDrive(double left, double right) {
-		System.out.println("L:"+left+" R:"+right);
+		//System.out.println("L:"+left+" R:"+right);
 		driveTalonLF.set(left);
 		driveTalonRF.set(right);
 		driveTalonLB.set(left);
