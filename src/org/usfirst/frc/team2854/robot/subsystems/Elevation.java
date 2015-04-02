@@ -44,7 +44,6 @@ public class Elevation extends PIDSubsystem {
 		// enable() - Enables the PID controller.
 		super(0.001, 0.001, 0.0);
 
-		/*
 		elevationTalon1 = new Talon(RobotMap.aElevation.aTalon.A);
 		elevationTalon2 = new Talon(RobotMap.aElevation.aTalon.B);
 
@@ -56,7 +55,6 @@ public class Elevation extends PIDSubsystem {
 				RobotMap.aElevation.aSensor.aEncoder.A.Channel.A,
 				RobotMap.aElevation.aSensor.aEncoder.A.Channel.B, true,
 				EncodingType.k4X);
-		*/
 
 		setAbsoluteTolerance(ElevationConfig.TOLERANCE);
 	}
@@ -70,8 +68,7 @@ public class Elevation extends PIDSubsystem {
 		// Return your input value for the PID loop
 		// e.g. a sensor, like a potentiometer:
 		// yourPot.getAverageVoltage() / kYourMaxVoltage;
-		return SmartDashboard.getNumber("PID");
-		//return elevationEncoder.getDistance();
+		return elevationEncoder.getDistance();
 	}
 
 	protected void usePIDOutput(double output) {
@@ -81,8 +78,7 @@ public class Elevation extends PIDSubsystem {
 	}
 
 	public void resetEncoder() {
-		System.out.println("ENCODER RESET ELEV");
-		//elevationEncoder.reset();
+		elevationEncoder.reset();
 	}
 
 	public void manualMove(double val) {
@@ -91,7 +87,6 @@ public class Elevation extends PIDSubsystem {
 
 	private void move(double val) {
 		System.out.println("V:"+val);
-		/*
 		if (botLimit.get() && val < 0 || topLimit.get() && val > 0) {
 			elevationTalon1.set(0);
 			elevationTalon2.set(0);
@@ -99,7 +94,6 @@ public class Elevation extends PIDSubsystem {
 			elevationTalon1.set(val);
 			elevationTalon2.set(val);
 		}
-		*/
 	}
 
 	public void disablePID() {
