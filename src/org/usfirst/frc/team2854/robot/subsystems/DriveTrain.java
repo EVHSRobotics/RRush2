@@ -35,14 +35,14 @@ public class DriveTrain extends Subsystem {
 		driveTalonRB = new Talon(RobotMap.aDrive.aTalon.RB);
 
 		
-		driveEncoderL = new Encoder(
-				RobotMap.aDrive.aSensor.aEncoder.L.Channel.A,
-				RobotMap.aDrive.aSensor.aEncoder.L.Channel.B, true,
-				EncodingType.k4X);
-		driveEncoderR = new Encoder(
-				RobotMap.aDrive.aSensor.aEncoder.R.Channel.A,
-				RobotMap.aDrive.aSensor.aEncoder.R.Channel.B, true,
-				EncodingType.k4X);
+//		driveEncoderL = new Encoder(
+//				RobotMap.aDrive.aSensor.aEncoder.L.Channel.A,
+//				RobotMap.aDrive.aSensor.aEncoder.L.Channel.B, true,
+//				EncodingType.k4X);
+//		driveEncoderR = new Encoder(
+//				RobotMap.aDrive.aSensor.aEncoder.R.Channel.A,
+//				RobotMap.aDrive.aSensor.aEncoder.R.Channel.B, true,
+//				EncodingType.k4X);
 	}
 
 	// Put methods for controlling this subsystem
