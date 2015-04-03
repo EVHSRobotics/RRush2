@@ -52,7 +52,7 @@ public class PickUp extends Subsystem {
 			System.out.println("HIT2");
 			pickupR.set(0);
 		}*/
-		//intake(0);
+		intake(0);
 		
 	}
 }
