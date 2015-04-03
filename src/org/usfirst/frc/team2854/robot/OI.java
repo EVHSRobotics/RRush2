@@ -11,7 +11,7 @@ import org.usfirst.frc.team2854.robot.commands.ExampleCommand;
  */
 public class OI {
 	public static class OIConfig {
-		public static final double DEADBAND = .05;
+		public static final double DEADBAND = .15;
 	}
 
 	// // CREATING BUTTONS
@@ -98,6 +98,7 @@ public class OI {
 	}
 
 	public double getAxis(int joyid, int a) {
+		System.out.println("JOY VAL:"+getJoystick(joyid).getRawAxis(a));
 		return fixDeadBand(getJoystick(joyid).getRawAxis(a));
 	}
 	
@@ -149,7 +150,7 @@ public class OI {
 	// Reset gyro (or disable) - Back
 	// Start Position - Start
 
-	public double fixDeadBand(double val) {
+	public static double fixDeadBand(double val) {
 		return (Math.abs(val) > OIConfig.DEADBAND ? val : 0.0);
 	}
 }

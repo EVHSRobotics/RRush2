@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2854.robot.commands;
 
+import org.usfirst.frc.team2854.robot.OI;
 import org.usfirst.frc.team2854.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -12,14 +13,18 @@ public class DriveMove extends Command {
 	private int joystickId;
 	private int axisIdL;
 	private int axisIdR;
+	private int axisLT;
+	private int axisRT;
 
-	public DriveMove(int aJoystickId, int aAxisIdL, int aAxisIdR) {
+	public DriveMove(int aJoystickId, int aAxisIdL, int aAxisIdR, int aAxisLT, int aAxisRT) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		joystickId = aJoystickId;
 		axisIdL = aAxisIdL;
-		axisIdR = aAxisIdR;
-
+		axisIdR = aAxisIdR;	
+		axisLT = aAxisLT;
+		axisRT = aAxisRT;
+		
 		requires(Robot.drive);
 	}
 
@@ -29,7 +34,18 @@ public class DriveMove extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.drive.tankDrive(Robot.oi.getAxis(joystickId, axisIdL), Robot.oi.getAxis(joystickId, axisIdR));
+		double leftVal = Robot.oi.getAxis(joystickId, axisIdL);
+		double rightVal = Robot.oi.getAxis(joystickId, axisIdR);
+		double leftTwist = OI.fixDeadBand(Robot.oi.getAxis(joystickId, axisLT));
+		double rightTwist = OI.fixDeadBand(Robot.oi.getAxis(joystickId, axisRT));
+		if(Math.abs(leftTwist) > 0){
+			leftVal = leftTwist;
+			rightVal = -leftTwist;
+		}else if(Math.abs(rightTwist) > 0){
+			leftVal = -rightTwist;
+			rightVal = rightTwist;
+		}
+		Robot.drive.tankDrive(OI.fixDeadBand(leftVal), OI.fixDeadBand(rightVal));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

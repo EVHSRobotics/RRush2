@@ -30,17 +30,19 @@ public class ElevationMoveTo extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.elevator.onTarget();
+        return Robot.elevator.onTarget() || Robot.elevator.botLimit.get() || Robot.elevator.topLimit.get();
     }
 
     // Called once after isFinished returns true
     protected void end() {
     	Robot.elevator.disablePID();
+    	Robot.elevator.manualMove(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     	Robot.elevator.disablePID();
+    	Robot.elevator.manualMove(0);
     }
 }

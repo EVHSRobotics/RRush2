@@ -33,6 +33,8 @@ public class Grab extends Command {
 			Robot.hooks.move(HooksConfig.DOWNSPEED);
 		} else if (Robot.oi.getButton(joystickId, buttonUpId)) {
 			Robot.hooks.move(HooksConfig.UPSPEED);
+		}else{
+			Robot.hooks.move(0);
 		}
     }
 

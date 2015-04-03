@@ -31,8 +31,8 @@ public class Elevation extends PIDSubsystem {
 	private Talon elevationTalon1;
 	private Talon elevationTalon2;
 
-	private DigitalInput botLimit;
-	private DigitalInput topLimit;
+	public DigitalInput botLimit;
+	public DigitalInput topLimit;
 
 	private Encoder elevationEncoder;
 
@@ -86,7 +86,10 @@ public class Elevation extends PIDSubsystem {
 	}
 
 	private void move(double val) {
-		System.out.println("V:"+val);
+		System.out.println("ENCODER:"+elevationEncoder.getRaw());
+		//System.out.println("V:"+val);
+		
+		val *=-1; //inverts Val
 		if (botLimit.get() && val < 0 || topLimit.get() && val > 0) {
 			elevationTalon1.set(0);
 			elevationTalon2.set(0);

@@ -3,6 +3,7 @@ package org.usfirst.frc.team2854.robot;
 import org.usfirst.frc.team2854.robot.OI.OIMap;
 import org.usfirst.frc.team2854.robot.commands.DoNothing;
 import org.usfirst.frc.team2854.robot.commands.DriveForward;
+import org.usfirst.frc.team2854.robot.commands.DriveForwardTime;
 import org.usfirst.frc.team2854.robot.commands.DriveMove;
 import org.usfirst.frc.team2854.robot.commands.ElevationMove;
 import org.usfirst.frc.team2854.robot.commands.ElevationMoveTo;
@@ -11,8 +12,8 @@ import org.usfirst.frc.team2854.robot.commands.Grab;
 import org.usfirst.frc.team2854.robot.commands.Intake;
 import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2854.robot.subsystems.Elevation;
-import org.usfirst.frc.team2854.robot.subsystems.Hooks;
 import org.usfirst.frc.team2854.robot.subsystems.Elevation.ElevationConfig;
+import org.usfirst.frc.team2854.robot.subsystems.Hooks;
 import org.usfirst.frc.team2854.robot.subsystems.PickUp;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -57,10 +58,10 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		
 		//MAKE SURE TO ADD THIS
-        //server = CameraServer.getInstance();
-        //server.setQuality(50);
+        server = CameraServer.getInstance();
+        server.setQuality(50);
         //the camera name (ex "cam0") can be found through the roborio web interface
-        //server.startAutomaticCapture("cam0");
+        server.startAutomaticCapture("cam0");
         
 		// instantiate the command used for the autonomous period
 		// autonomousCommand = new ExampleCommand();
@@ -74,6 +75,7 @@ public class Robot extends IterativeRobot {
 		autoChooser.addDefault("Do Nothing", new DoNothing());
 		autoChooser.addObject("Forward", new DriveForward(4096));
 		autoChooser.addObject("Full Auto", new FullAuto());
+		autoChooser.addObject("Forward (manual)", new DriveForwardTime(1));
 		SmartDashboard.putData("Autonomous Mode Choooser", autoChooser);
 		SmartDashboard.putNumber("PID",0);
 	}
@@ -133,23 +135,24 @@ public class Robot extends IterativeRobot {
 					new ElevationMove(OIMap.JoystickId.JOY2, OIMap.Axis.LY));
 		}
 		// drive
-		System.out.println("4");
+		
 		if (drive.getCurrentCommand() == null || !drive.getCurrentCommand().getName().equals("DriveMove")) {
+			System.out.println("4");
 			
 			Scheduler.getInstance().add(
 					new DriveMove(OIMap.JoystickId.JOY1, OIMap.Axis.LY,
-							OIMap.Axis.RY));
+							OIMap.Axis.RY, OIMap.Axis.LT, OIMap.Axis.RT));
 		}
 		// pickup
-		System.out.println("5");
+		
 		if (pickup.getCurrentCommand() == null || !pickup.getCurrentCommand().getName().equals("Intake")) {
-			
+			System.out.println("5");
 			Scheduler.getInstance().add(new Intake(OIMap.JoystickId.JOY1, OIMap.Button.RB, OIMap.Button.LB));
 		}
 		//hooks 
-		System.out.println("6");
+		
 		if(hooks.getCurrentCommand() == null || !hooks.getCurrentCommand().getName().equals("Grab")){
-			
+			System.out.println("6");
 			Scheduler.getInstance().add(new Grab(OIMap.JoystickId.JOY2, OIMap.Button.X, OIMap.Button.B));
 		}
 		Scheduler.getInstance().run();

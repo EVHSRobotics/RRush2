@@ -26,8 +26,9 @@ public class PickUp extends Subsystem {
 	// here. Call these from Commands.
 
 	public void intake(double val) {
-		pickupL.set(val);
-		pickupR.set(-val);
+		System.out.println("INTAKE:"+val);
+		pickupL.set(-val);
+		pickupR.set(val);
 	}
 	
 	public void initDefaultCommand() {

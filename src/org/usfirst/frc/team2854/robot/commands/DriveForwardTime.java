@@ -1,57 +1,49 @@
 package org.usfirst.frc.team2854.robot.commands;
 
 import org.usfirst.frc.team2854.robot.Robot;
-import org.usfirst.frc.team2854.robot.subsystems.Elevation.ElevationConfig;
-import org.usfirst.frc.team2854.robot.subsystems.PickUp.PickUpConfig;
+import org.usfirst.frc.team2854.robot.subsystems.DriveTrain.DriveConfig;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class Intake extends Command {
-	private int joystickId;
-	private int buttonInId;
-	private int buttonOutId;
+public class DriveForwardTime extends Command {
+	private double time;
 
-	public Intake(int aJoystickId, int aButtonInId, int aButtonOutId) {
+	public DriveForwardTime(double aTime) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-		joystickId = aJoystickId;
-		buttonInId = aButtonInId;
-		buttonOutId = aButtonOutId;
+		time = aTime;
 
-		requires(Robot.pickup);
+		requires(Robot.drive);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.drive.tankDrive(DriveConfig.FORWARD_SPEED,
+				DriveConfig.FORWARD_SPEED);
+		Timer.delay(time);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Robot.oi.getButton(joystickId, buttonInId)) {
-			Robot.pickup.intake(PickUpConfig.SPEED_IN);
-		} else if (Robot.oi.getButton(joystickId, buttonOutId)) {
-			Robot.pickup.intake(PickUpConfig.SPEED_OUT);
-		}else{
-			Robot.pickup.intake(0);
-		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.pickup.intake(0);
+		Robot.drive.tankDrive(0, 0);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		Robot.pickup.intake(0);
+		Robot.drive.tankDrive(0, 0);
 	}
 }
