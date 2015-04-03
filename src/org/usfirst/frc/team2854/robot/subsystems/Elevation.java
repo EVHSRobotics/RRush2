@@ -86,7 +86,7 @@ public class Elevation extends PIDSubsystem {
 	}
 
 	private void move(double val) {
-		System.out.println("ENCODER:"+elevationEncoder.getRaw());
+		//System.out.println("ENCODER:"+elevationEncoder.getRaw());
 		//System.out.println("V:"+val);
 		
 		val *=-1; //inverts Val

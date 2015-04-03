@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Hooks extends Subsystem{
 	public static class HooksConfig{
-		public static final double UPSPEED = 0.5;
-		public static final double DOWNSPEED = -0.5;
+		public static final double UPSPEED =  1;
+		public static final double DOWNSPEED = -1;
 	}
 	private Victor hookMotor;
 	

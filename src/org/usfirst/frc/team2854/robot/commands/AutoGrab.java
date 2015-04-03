@@ -1,49 +1,47 @@
 package org.usfirst.frc.team2854.robot.commands;
 
 import org.usfirst.frc.team2854.robot.Robot;
+import org.usfirst.frc.team2854.robot.subsystems.Hooks.HooksConfig;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  *
  */
-public class ElevationMoveTo extends Command {
+public class AutoGrab extends Command {
 
-	private double setpoint;
-	
-    public ElevationMoveTo(double aSetpoint) {
+    public AutoGrab() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.elevator);
-    	setpoint = aSetpoint;
+    	requires(Robot.hooks);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.elevator.setSetpoint(setpoint);
-    	Robot.elevator.enablePID();
+    	Robot.hooks.move(HooksConfig.UPSPEED);
+    	Timer.delay(4);
+
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("LOOPING");
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.elevator.onTarget() || Robot.elevator.botLimit.get() || Robot.elevator.topLimit.get();
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.elevator.disablePID();
-    	Robot.elevator.manualMove(0);
+    	Robot.hooks.move(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.elevator.disablePID();
-    	Robot.elevator.manualMove(0);
+    	Robot.hooks.move(0);
     }
 }

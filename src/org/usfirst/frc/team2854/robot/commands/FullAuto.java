@@ -26,9 +26,9 @@ public class FullAuto extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new DriveForward(4096));
-    	addSequential(new ElevationMoveTo(ElevationConfig.Setpoint.MID));
-    	addSequential(new DriveTurn(true));
-    	addSequential(new DriveForward(4096));
+    	addSequential(new DriveBackwardTime(.5));
+    	addSequential(new AutoGrab());
+    	addSequential(new DriveForwardTime(2));
+    	
     }
 }

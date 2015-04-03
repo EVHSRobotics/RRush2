@@ -22,8 +22,8 @@ public class DriveForwardTime extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.drive.tankDrive(DriveConfig.FORWARD_SPEED,
-				DriveConfig.FORWARD_SPEED);
+		Robot.drive.tankDrive(-DriveConfig.FORWARD_SPEED,
+				-DriveConfig.FORWARD_SPEED);
 		Timer.delay(time);
 	}
 

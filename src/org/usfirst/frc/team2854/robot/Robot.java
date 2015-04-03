@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2854.robot;
 
 import org.usfirst.frc.team2854.robot.OI.OIMap;
+import org.usfirst.frc.team2854.robot.commands.AutoGrab;
 import org.usfirst.frc.team2854.robot.commands.DoNothing;
 import org.usfirst.frc.team2854.robot.commands.DriveForward;
 import org.usfirst.frc.team2854.robot.commands.DriveForwardTime;
@@ -76,8 +77,9 @@ public class Robot extends IterativeRobot {
 		autoChooser.addObject("Forward", new DriveForward(4096));
 		autoChooser.addObject("Full Auto", new FullAuto());
 		autoChooser.addObject("Forward (manual)", new DriveForwardTime(1));
+		autoChooser.addObject("Test grab", new AutoGrab());
 		SmartDashboard.putData("Autonomous Mode Choooser", autoChooser);
-		SmartDashboard.putNumber("PID",0);
+		//SmartDashboard.putNumber("PID",0);
 	}
 
 	public void disabledPeriodic() {
@@ -87,6 +89,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
 		autonomousCommand = (Command) autoChooser.getSelected();
+		//autonomousCommand = new AutoGrab();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -119,12 +122,14 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
+		System.out.println("TEST1:" + Robot.elevator.topLimit.get());
+		System.out.println("TEST2:"+Robot.elevator.botLimit.get());
 		// elevation
-		if (Robot.oi.getButton(OIMap.JoystickId.JOY2, OIMap.Button.LB)) {
+		if (Robot.oi.getButton(OIMap.JoystickId.JOY1, OIMap.Button.LB)) {
 			System.out.println("1");
 			Scheduler.getInstance().add(
 					new ElevationMoveTo(ElevationConfig.Setpoint.BOT));
-		} else if (Robot.oi.getButton(OIMap.JoystickId.JOY2, OIMap.Button.RB)) {
+		} else if (Robot.oi.getButton(OIMap.JoystickId.JOY1, OIMap.Button.RB)) {
 			System.out.println("2");
 			Scheduler.getInstance().add(
 					new ElevationMoveTo(ElevationConfig.Setpoint.TOP));
@@ -147,13 +152,16 @@ public class Robot extends IterativeRobot {
 		
 		if (pickup.getCurrentCommand() == null || !pickup.getCurrentCommand().getName().equals("Intake")) {
 			System.out.println("5");
-			Scheduler.getInstance().add(new Intake(OIMap.JoystickId.JOY1, OIMap.Button.RB, OIMap.Button.LB));
+			//if(oi.getButton(OIMap.JoystickId.JOY2, OIMap.Button.RB) || oi.getButton(OIMap.JoystickId.JOY2, OIMap.Button.LB)){
+
+				Scheduler.getInstance().add(new Intake(OIMap.JoystickId.JOY2, OIMap.Button.RB, OIMap.Button.LB));
+			//}
 		}
 		//hooks 
 		
 		if(hooks.getCurrentCommand() == null || !hooks.getCurrentCommand().getName().equals("Grab")){
 			System.out.println("6");
-			Scheduler.getInstance().add(new Grab(OIMap.JoystickId.JOY2, OIMap.Button.X, OIMap.Button.B));
+			Scheduler.getInstance().add(new Grab(OIMap.JoystickId.JOY2, OIMap.Button.X, OIMap.Button.A));
 		}
 		Scheduler.getInstance().run();
 	}

@@ -13,6 +13,7 @@ public class Intake extends Command {
 	private int joystickId;
 	private int buttonInId;
 	private int buttonOutId;
+	private int currentButton;
 
 	public Intake(int aJoystickId, int aButtonInId, int aButtonOutId) {
 		// Use requires() here to declare subsystem dependencies
@@ -32,26 +33,30 @@ public class Intake extends Command {
 	protected void execute() {
 		if (Robot.oi.getButton(joystickId, buttonInId)) {
 			Robot.pickup.intake(PickUpConfig.SPEED_IN);
+			currentButton = buttonInId;
 		} else if (Robot.oi.getButton(joystickId, buttonOutId)) {
 			Robot.pickup.intake(PickUpConfig.SPEED_OUT);
+			currentButton = buttonOutId;
 		}else{
-			Robot.pickup.intake(0);
+			Robot.pickup.stop();
+			currentButton = 0;
 		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return (currentButton == 0) || !Robot.oi.getButton(joystickId,  currentButton);
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.pickup.intake(0);
+		System.out.println("finishing");
+		Robot.pickup.stop();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		Robot.pickup.intake(0);
+		Robot.pickup.stop();
 	}
 }

@@ -98,7 +98,7 @@ public class OI {
 	}
 
 	public double getAxis(int joyid, int a) {
-		System.out.println("JOY VAL:"+getJoystick(joyid).getRawAxis(a));
+		//System.out.println("JOY VAL:"+getJoystick(joyid).getRawAxis(a));
 		return fixDeadBand(getJoystick(joyid).getRawAxis(a));
 	}
 	

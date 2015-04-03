@@ -16,7 +16,7 @@ public class DriveTrain extends Subsystem {
 		
 		public static final double TURN_SPEED = 0.5;
 		public static final double FORWARD_SPEED = 0.7;
-		
+		public static final double DRIVE_TUNING = .7;
 		public static final double DRIVE_TOLERANCE = 50;
 	}
 	
@@ -49,7 +49,9 @@ public class DriveTrain extends Subsystem {
 	// here. Call these from Commands.
 
 	public void tankDrive(double left, double right) {
-		System.out.println("L:"+left+" R:"+right);
+		//System.out.println("L:"+left+" R:"+right);
+		left*= DriveConfig.DRIVE_TUNING;
+		right*= DriveConfig.DRIVE_TUNING;
 		driveTalonLF.set(-left);
 		driveTalonRF.set(right);
 		driveTalonLB.set(-left);
