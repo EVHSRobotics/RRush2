@@ -69,8 +69,8 @@ public class RobotMap {
 	
 	public static class aPickUp {
 		public static class aTalon {
-			public static final int L = 6; 
-			public static final int R = 7;
+			public static final int L = 7; 
+			public static final int R = 6;
 		}
 		public static class aSensor{
 		public static class Limit {

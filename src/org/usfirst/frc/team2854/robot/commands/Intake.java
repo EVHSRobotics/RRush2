@@ -27,6 +27,7 @@ public class Intake extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		System.out.println("Command Added");
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -38,7 +39,7 @@ public class Intake extends Command {
 			Robot.pickup.intake(PickUpConfig.SPEED_OUT);
 			currentButton = buttonOutId;
 		}else{
-			Robot.pickup.stop();
+			//Robot.pickup.stop();
 			currentButton = 0;
 		}
 	}

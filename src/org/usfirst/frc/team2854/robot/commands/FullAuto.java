@@ -28,6 +28,7 @@ public class FullAuto extends CommandGroup {
         // arm.
     	addSequential(new DriveBackwardTime(.5));
     	addSequential(new AutoGrab());
+    	addSequential(new Wiggle());
     	addSequential(new DriveForwardTime(2));
     	
     }

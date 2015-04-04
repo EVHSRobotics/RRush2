@@ -16,7 +16,7 @@ public class DriveTrain extends Subsystem {
 		
 		public static final double TURN_SPEED = 0.5;
 		public static final double FORWARD_SPEED = 0.7;
-		public static final double DRIVE_TUNING = .7;
+		public static final double DRIVE_TUNING = .6;
 		public static final double DRIVE_TOLERANCE = 50;
 	}
 	
