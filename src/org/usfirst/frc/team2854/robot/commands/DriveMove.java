@@ -4,6 +4,7 @@ import org.usfirst.frc.team2854.robot.OI;
 import org.usfirst.frc.team2854.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  *
@@ -30,6 +31,7 @@ public class DriveMove extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -45,6 +47,21 @@ public class DriveMove extends Command {
 			leftVal = -rightTwist;
 			rightVal = rightTwist;
 		}
+		/*
+		if((Robot.scaling.getCurrentCommand() == null || !Robot.scaling.getCurrentCommand().getName().equals("ScaleDriving") ) && (Math.abs(leftVal)>0 || Math.abs(rightVal) >0)){
+			System.out.println("SCALE DRIVING ADDED");
+			if(Robot.drive.scalingEnabled == true){
+
+				Scheduler.getInstance().add(new ScaleDriving());
+			}
+
+			System.out.println(Robot.scaling.getCurrentCommand().getName());
+		}else if(leftVal == 0 && rightVal == 0){
+			if(Robot.drive.scalingEnabled == true){
+				Scheduler.getInstance().add(new ResetScaling());
+			}
+		}*/
+		
 		Robot.drive.tankDrive(OI.fixDeadBand(leftVal), OI.fixDeadBand(rightVal));
 	}
 

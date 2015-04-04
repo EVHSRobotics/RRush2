@@ -7,13 +7,12 @@ import org.usfirst.frc.team2854.robot.commands.DriveForward;
 import org.usfirst.frc.team2854.robot.commands.DriveForwardTime;
 import org.usfirst.frc.team2854.robot.commands.DriveMove;
 import org.usfirst.frc.team2854.robot.commands.ElevationMove;
-import org.usfirst.frc.team2854.robot.commands.ElevationMoveTo;
 import org.usfirst.frc.team2854.robot.commands.FullAuto;
 import org.usfirst.frc.team2854.robot.commands.Grab;
 import org.usfirst.frc.team2854.robot.commands.Intake;
+import org.usfirst.frc.team2854.robot.subsystems.DriveScaling;
 import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2854.robot.subsystems.Elevation;
-import org.usfirst.frc.team2854.robot.subsystems.Elevation.ElevationConfig;
 import org.usfirst.frc.team2854.robot.subsystems.Hooks;
 import org.usfirst.frc.team2854.robot.subsystems.PickUp;
 
@@ -41,6 +40,7 @@ public class Robot extends IterativeRobot {
 	public static final DriveTrain drive = new DriveTrain();
 	public static final PickUp pickup = new PickUp();
 	public static final Hooks hooks = new Hooks();
+	public static final DriveScaling scaling = new DriveScaling();
 	
 	//AND THIS
 	CameraServer server;

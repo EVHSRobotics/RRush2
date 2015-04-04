@@ -44,7 +44,7 @@ public class ElevationMove extends Command {
     protected void execute() {
     	if(isAxis) {
     		Robot.elevator.manualMove(Robot.oi.getAxis(joystickId, axisId));
-    		System.out.println("OUT MOTORS" + Robot.oi.getAxis(joystickId, axisId));
+    		//System.out.println("OUT MOTORS" + Robot.oi.getAxis(joystickId, axisId));
     	} else {
     		if(Robot.oi.getButton(joystickId, buttonUpId)){
     			Robot.elevator.manualMove(ElevationConfig.ButtonMove.UP);

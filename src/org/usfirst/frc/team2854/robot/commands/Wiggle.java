@@ -22,7 +22,7 @@ public class Wiggle extends Command {
 	protected void initialize() {
 		Robot.drive.tankDrive(-DriveConfig.FORWARD_SPEED,
 				DriveConfig.FORWARD_SPEED);
-		Timer.delay(.3);
+		Timer.delay(.1);
 		Robot.drive.tankDrive(DriveConfig.FORWARD_SPEED, -DriveConfig.FORWARD_SPEED);
 	}
 
